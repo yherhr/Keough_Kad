@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Keough Kad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07080a;
+      --surface: #0e0f12;
+      --surface2: #14151a;
+      --orange: #ff6a00;
+      --orange-dim: #c84f00;
+      --blue: #3ecfff;
+      --text: #dde0e8;
+      --muted: #5a5f70;
+      --grid: rgba(62,207,255,0.04);
+      --border: rgba(62,207,255,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none; z-index: 0;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 72px;
+      background: rgba(7,8,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.08em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+    .nav-cta { background: var(--orange); color: #fff; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.55rem 1.4rem; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: background 0.2s; }
+    .nav-cta:hover { background: var(--orange-dim); }
+
+    .section-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+    h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); }
+
+    /* PAGE HERO */
+    .page-hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative; z-index: 1;
+      padding-top: 72px;
+    }
+
+    .hero-left {
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+    }
+
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 7vw, 6.5rem); letter-spacing: 0.04em; line-height: 0.95; color: var(--text); }
+    h1 .accent { color: var(--orange); }
+
+    .intro-text { color: var(--muted); line-height: 1.9; margin-top: 1.5rem; max-width: 480px; font-size: 1rem; }
+
+    .big-quote {
+      margin-top: 2.5rem;
+      padding: 2rem;
+      border-left: 3px solid var(--orange);
+      background: var(--surface);
+    }
+    .big-quote p {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .big-quote cite {
+      display: block;
+      margin-top: 0.8rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-area {
+      flex: 1;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+    }
+
+    .profile-area::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(62,207,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(62,207,255,0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .profile-placeholder {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+
+    .avatar-ring {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,106,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto;
+      position: relative;
+    }
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      border: 1px dashed rgba(62,207,255,0.15);
+      animation: rotateSlow 20s linear infinite;
+    }
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,106,0,0.08);
+      animation: rotateSlow 30s linear infinite reverse;
+    }
+
+    @keyframes rotateSlow {
+      to { transform: rotate(360deg); }
+    }
+
+    .avatar-inner {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,106,0,0.15), rgba(62,207,255,0.1));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+    }
+
+    .profile-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      margin-top: 1.5rem;
+      color: var(--text);
+    }
+
+    .profile-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-top: 0.4rem;
+    }
+
+    .honours-strip {
+      background: var(--orange);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .honours-icon { font-size: 2rem; }
+    .honours-text p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .honours-text strong {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: #fff;
+      display: block;
+    }
+
+    /* SKILLS SECTION */
+    .skills-section {
+      position: relative; z-index: 1;
+      padding: 5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-text p { color: var(--muted); line-height: 1.9; margin-top: 1rem; }
+    .skills-text p + p { margin-top: 1rem; }
+
+    .skills-bars { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+
+    .skill-item {}
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .skill-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .skill-pct {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--orange);
+    }
+    .skill-bar {
+      height: 3px;
+      background: var(--surface2);
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* EDUCATION TIMELINE */
+    .timeline-section {
+      position: relative; z-index: 1;
+      padding: 5rem 4rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline {
+      margin-top: 3rem;
+      position: relative;
+      padding-left: 3rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+
+    .tl-dot {
+      position: absolute;
+      left: -3rem;
+      top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--orange);
+    }
+    .tl-dot.highlight { background: var(--orange); box-shadow: 0 0 12px rgba(255,106,0,0.5); }
+
+    .tl-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.4rem;
+    }
+    .tl-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .tl-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 0.6rem;
+    }
+    .tl-desc { color: var(--muted); font-size: 0.92rem; max-width: 560px; }
+
+    .tl-tag {
+      display: inline-block;
+      margin-top: 0.8rem;
+      background: rgba(255,106,0,0.1);
+      border: 1px solid rgba(255,106,0,0.25);
+      padding: 0.25rem 0.8rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    /* VALUES */
+    .values-section {
+      position: relative; z-index: 1;
+      padding: 5rem 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 3rem;
+    }
+    .value-card {
+      background: var(--surface);
+      padding: 2.5rem 2rem;
+      border: 1px solid transparent;
+      transition: border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .value-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--orange);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .value-card:hover { border-color: rgba(255,106,0,0.15); }
+    .value-card:hover::before { transform: scaleX(1); }
+
+    .val-icon { font-size: 2rem; margin-bottom: 1.2rem; display: block; }
+    .val-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+    .val-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* FINAL CTA */
+    .cta-section {
+      position: relative; z-index: 1;
+      padding: 6rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: 'KEOUGH KAD';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14rem;
+      color: rgba(255,106,0,0.03);
+      white-space: nowrap;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: 0.1em;
+    }
+
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary { background: var(--orange); color: #fff; font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2.2rem; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); transition: background 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--orange-dim); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2.2rem; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); transition: border-color 0.2s, color 0.2s; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--text); text-decoration: none; }
+    .footer-logo span { color: var(--orange); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .page-hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 6rem 1.5rem 3rem; }
+      .hero-right { min-height: 400px; }
+      .skills-section { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem; }
+      .timeline-section, .values-section, .cta-section { padding: 3rem 1.5rem; }
+      .values-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Keough <span>Kad</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <a href="services.html" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-left">
+    <p class="section-tag">// The Person Behind the Parts</p>
+    <h1>Meet <span class="accent">Harrison</span> Keough</h1>
+    <p class="intro-text">Keough Kad isn't just a side hustle — it's what happens when a mechanical engineer with genuine passion for cars and making things decides to put his degree to work. Every part designed, every print checked, every customer contacted — that's Harrison.</p>
+    <div class="big-quote">
+      <p>"If I wouldn't fit it to my own car, I won't send it to yours."</p>
+      <cite>— Harrison Keough, Founder</cite>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="profile-area">
+      <div class="profile-placeholder">
+        <div class="avatar-ring">
+          <div class="avatar-inner">🧑‍🔧</div>
+        </div>
+        <p class="profile-name">Harrison Keough</p>
+        <p class="profile-title">Mechanical Engineer · Founder</p>
+      </div>
+    </div>
+    <div class="honours-strip">
+      <span class="honours-icon">🎓</span>
+      <div class="honours-text">
+        <p>Graduated with</p>
+        <strong>First-Class Honours</strong>
+        <p>Bachelor of Mechanical Engineering</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="skills-text">
+    <p class="section-tag">// Engineering Expertise</p>
+    <h2>The Skills That Drive the Work</h2>
+    <p>Harrison's background in mechanical engineering isn't just a credential — it shapes every project that comes through the door. From understanding material properties under load, to designing parts that account for thermal expansion under the bonnet, the engineering knowledge is baked in.</p>
+    <p>He's proficient across the major CAD platforms and has hands-on experience operating and tuning FDM printers for optimal print quality and dimensional accuracy.</p>
+  </div>
+  <div>
+    <div class="skills-bars" id="skillsBars">
+      <div class="skill-item" data-pct="95">
+        <div class="skill-header"><span class="skill-name">SolidWorks</span><span class="skill-pct">Expert</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item" data-pct="90">
+        <div class="skill-header"><span class="skill-name">Fusion 360</span><span class="skill-pct">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item" data-pct="85">
+        <div class="skill-header"><span class="skill-name">FDM 3D Printing</span><span class="skill-pct">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item" data-pct="88">
+        <div class="skill-header"><span class="skill-name">GD&amp;T / Tolerancing</span><span class="skill-pct">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-item" data-pct="80">
+        <div class="skill-header"><span class="skill-name">Material Science</span><span class="skill-pct">Strong</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-item" data-pct="78">
+        <div class="skill-header"><span class="skill-name">FEA / Stress Analysis</span><span class="skill-pct">Strong</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION TIMELINE -->
+<section class="timeline-section">
+  <p class="section-tag">// Education &amp; Milestones</p>
+  <h2>The Road Here</h2>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot highlight"></div>
+      <p class="tl-year">2024 — Present</p>
+      <p class="tl-title">Keough Kad — Founded</p>
+      <p class="tl-sub">Founder &amp; Lead Engineer</p>
+      <p class="tl-desc">Launched Keough Kad as a CAD design and 3D printing service with a focus on automotive accessories. Taking on custom projects, design commissions, and growing an in-house product range.</p>
+      <span class="tl-tag">🚀 Current Venture</span>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot highlight"></div>
+      <p class="tl-year">2024</p>
+      <p class="tl-title">Bachelor of Mechanical Engineering (Hons) — Graduated</p>
+      <p class="tl-sub">First-Class Honours</p>
+      <p class="tl-desc">Completed a full mechanical engineering degree with first-class honours. Covered dynamics, thermodynamics, materials, manufacturing processes, CAD/CAM, and design engineering. Final year project focused on additive manufacturing and functional polymer part design.</p>
+      <span class="tl-tag">🎓 First-Class Honours</span>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">2022</p>
+      <p class="tl-title">Industrial Placement — Engineering Design</p>
+      <p class="tl-sub">Product Design &amp; Prototyping</p>
+      <p class="tl-desc">Completed a 12-month industrial placement working on product development and prototyping. Gained hands-on experience in design-for-manufacture, quality tolerancing, and rapid prototyping workflows.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">2020</p>
+      <p class="tl-title">Mechanical Engineering — Year 1</p>
+      <p class="tl-sub">Engineering Foundations</p>
+      <p class="tl-desc">Began studying mechanical engineering with a focus on mathematics, solid mechanics, thermodynamics, and introductory CAD. Built the technical foundation that underpins every Keough Kad design.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <p class="section-tag">// What Drives the Work</p>
+  <h2>Core Values</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <span class="val-icon">🎯</span>
+      <p class="val-title">Engineering Accuracy</p>
+      <p class="val-desc">Parts are designed with real tolerances, not guesswork. Every dimension is thought through — because a print that almost fits is the same as one that doesn't.</p>
+    </div>
+    <div class="value-card">
+      <span class="val-icon">🔍</span>
+      <p class="val-title">Quality First</p>
+      <p class="val-desc">Nothing ships without a quality check. Prints are inspected, dimensions verified, and any part that doesn't meet standard gets reprinted — not posted.</p>
+    </div>
+    <div class="value-card">
+      <span class="val-icon">🤝</span>
+      <p class="val-title">Honest Communication</p>
+      <p class="val-desc">Transparent pricing, honest timelines, and plain-English feedback on what's achievable. No hidden costs, no over-promising.</p>
+    </div>
+    <div class="value-card">
+      <span class="val-icon">⚡</span>
+      <p class="val-title">Fast Turnaround</p>
+      <p class="val-desc">Most quotes returned in 24 hours. Most parts designed, printed, and posted within a week. Enthusiasm beats bureaucracy.</p>
+    </div>
+    <div class="value-card">
+      <span class="val-icon">🚗</span>
+      <p class="val-title">Genuine Car Enthusiasm</p>
+      <p class="val-desc">This isn't a generic print shop. Harrison genuinely loves cars — so he understands what you're building, why fitment matters, and what the part actually has to do.</p>
+    </div>
+    <div class="value-card">
+      <span class="val-icon">🌱</span>
+      <p class="val-title">Continuous Improvement</p>
+      <p class="val-desc">Every job is a chance to refine. Better print settings, better design workflows, better customer experience — Keough Kad gets better with every build.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Let's Build Something Together</h2>
+  <p>Whether you have a project idea, a part that needs designing, or a print job to run — get in touch. Harrison will respond personally.</p>
+  <div class="cta-btns">
+    <a href="services.html" class="btn-primary">Get a Free Quote</a>
+    <a href="shop.html" class="btn-ghost">Browse the Shop</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Keough <span>Kad</span></a>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <p class="footer-copy">© 2024 Keough Kad. All rights reserved.</p>
+</footer>
+
+<script>
+  // Animate skill bars when visible
+  const bars = document.querySelectorAll('.skill-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.transform = 'scaleX(1)';
+      }
+    });
+  }, { threshold: 0.2 });
+
+  bars.forEach(bar => observer.observe(bar));
+</script>
+</body>
+</html>
